@@ -1,6 +1,6 @@
 # AutoExtract
 
-AutoExtract は OCR + Bedrock を活用した帳票読み取りの AI-OCR ソリューションです。
+AutoExtract は OCR + Bedrock を活用した帳票読み取りの AI-OCR ソリューションです。帳票からの情報抽出を半自動化し、人間によるデータ入力チェックをサポートするツールです。
 
 デモ（OCR エンジンとして Yomitoku を使用）
 
@@ -121,3 +121,11 @@ npm run dev
 ```
 
 ブラウザで `http://localhost:3000` を開くと、アプリケーションにアクセスできます。
+
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
