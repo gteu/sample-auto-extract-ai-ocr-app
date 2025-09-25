@@ -17,7 +17,7 @@ import * as path from "path";
 
 export interface OcrProps {
   baseName?: string;
-  ocrEngine?: "paddle";
+  ocrEngine?: "paddle" | "yomitoku";
   instanceType?: string;
   environment?: Record<string, string>;
 }
@@ -32,23 +32,27 @@ export class Ocr extends Construct {
 
     // デフォルト値の設定
     const baseName = props.baseName || "ocr";
-    const instanceType = props.instanceType || "ml.g5.2xlarge";
     const ocrEngine = props.ocrEngine || "paddle";
+    const instanceType = props.instanceType || (ocrEngine === "yomitoku" ? "ml.g5.xlarge" : "ml.g5.2xlarge");
 
-    // PaddleOCRのコンテナパス
-    const containerPath = path.join(
-      __dirname,
-      "../../ocr-containers/paddle-ocr"
-    );
+    // OCRエンジンに応じたコンテナパス
+    const containerPath = ocrEngine === "paddle" 
+      ? path.join(__dirname, "../../ocr-containers/paddle-ocr")
+      : path.join(__dirname, "../../ocr-containers/yomitoku");
 
     const variantName = "AllTraffic";
     this.inferenceComponentName = `${baseName}-inference-component`;
 
-    // PaddleOCR用のデフォルト環境変数
-    const defaultEnv = {
-      USE_GPU: "true",
-      CUDA_VISIBLE_DEVICES: "0",
-    };
+    // OCRエンジン固有のデフォルト環境変数
+    const defaultEnv = ocrEngine === "paddle" 
+      ? {
+          USE_GPU: "true",
+          CUDA_VISIBLE_DEVICES: "0",
+        }
+      : {
+          // yomitoku用の環境変数
+          CUDA_VISIBLE_DEVICES: "0",
+        };
 
     // デフォルトと指定された環境変数をマージ
     const environment = {

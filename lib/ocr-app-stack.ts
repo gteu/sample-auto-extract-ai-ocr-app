@@ -21,7 +21,7 @@ export class OcrAppStack extends cdk.Stack {
     // OCRが有効な場合のみSageMakerエンドポイントを作成
     let ocrEndpoint = undefined;
     if (enableOcr) {
-      const ocr = new Ocr(this, "OcrEndpoint");
+      const ocr = new Ocr(this, "OcrEndpoint", { ocrEngine: "yomitoku" });
       ocrEndpoint = ocr;
     }
 
