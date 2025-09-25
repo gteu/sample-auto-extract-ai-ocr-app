@@ -10,7 +10,7 @@ class OcrWord(BaseModel):
     rec_score: Optional[float] = None
     points: Optional[List[List[float]]] = None
     page: Optional[int] = None
-    direction: Optional[int] = None
+    direction: Optional[str] = None
 
 
 class OcrResult(BaseModel):

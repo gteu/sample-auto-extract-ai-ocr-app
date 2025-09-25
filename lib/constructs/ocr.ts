@@ -15,50 +15,16 @@ import {
 import { Construct } from "constructs";
 import * as path from "path";
 
-/**
- * OCR機能をSageMakerで実装するためのプロパティ
- */
 export interface OcrProps {
-  /**
-   * SageMakerリソースのベース名
-   */
   baseName?: string;
-
-  /**
-   * 使用するOCRエンジンタイプ
-   * @default "paddle"
-   */
   ocrEngine?: "paddle";
-
-  /**
-   * SageMakerエンドポイントのインスタンスタイプ
-   * @default ml.g5.4xlarge
-   */
   instanceType?: string;
-
-  /**
-   * コンテナの環境変数
-   */
   environment?: Record<string, string>;
 }
 
-/**
- * OCR機能をSageMakerで実装するためのコンストラクト
- */
 export class Ocr extends Construct {
-  /**
-   * SageMakerエンドポイント名
-   */
   public readonly endpointName: string;
-
-  /**
-   * SageMaker推論コンポーネント名
-   */
   public readonly inferenceComponentName: string;
-
-  /**
-   * SageMaker実行ロールARN
-   */
   public readonly sagemakerRoleArn: string;
 
   constructor(scope: Construct, id: string, props: OcrProps = {}) {
@@ -66,7 +32,7 @@ export class Ocr extends Construct {
 
     // デフォルト値の設定
     const baseName = props.baseName || "ocr";
-    const instanceType = props.instanceType || "ml.g5.4xlarge";
+    const instanceType = props.instanceType || "ml.g5.2xlarge";
     const ocrEngine = props.ocrEngine || "paddle";
 
     // PaddleOCRのコンテナパス
