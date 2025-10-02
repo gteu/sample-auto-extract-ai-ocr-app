@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Upload from './pages/Upload';
 import OCRResult from './pages/OCRResult';
 import SchemaGenerator from './pages/SchemaGenerator'; // 追加
+import { AppProvider } from './components/AppContext';
 import '@aws-amplify/ui-react/styles.css';
 
 // Layout component that includes the App wrapper and authentication
@@ -12,9 +13,11 @@ const AppLayout = () => {
   return (
     <Authenticator>
       {() => (
-        <App>
-          <Outlet />
-        </App>
+        <AppProvider>
+          <App>
+            <Outlet />
+          </App>
+        </AppProvider>
       )}
     </Authenticator>
   );
