@@ -32,24 +32,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     setLoading(true);
     setError(null);
     try {
-      // リトライ機能を追加
-      let retries = 3;
-      let success = false;
-      let response: any = null;
-      
-      while (retries > 0 && !success) {
-        try {
-          response = await api.get('/apps');
-          success = true;
-        } catch (err) {
-          retries--;
-          if (retries === 0) throw err;
-          // リトライ前に少し待機
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      }
-      
-      console.log('API Response:', response);
+      const response = await api.get('/apps');
       if (response && response.data) {
         setApps(response.data.apps || []);
       } else {
@@ -58,7 +41,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     } catch (err) {
       console.error('Failed to fetch apps:', err);
       setError('アプリケーション情報の取得に失敗しました');
-      // エラーが発生しても空の配列を設定して、UIが壊れないようにする
       setApps([]);
     } finally {
       setLoading(false);

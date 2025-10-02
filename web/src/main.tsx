@@ -5,7 +5,6 @@ import { Amplify } from 'aws-amplify';
 import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 import awsmobile from './aws-exports';
 import router from './router';
-import { AppProvider } from './components/AppContext';
 import './index.css';
 import './styles/index.css'; // アニメーション用のCSSを追加
 
@@ -22,8 +21,6 @@ cognitoUserPoolsTokenProvider.setKeyValueStorage({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );
