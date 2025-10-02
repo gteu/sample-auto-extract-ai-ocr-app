@@ -57,10 +57,10 @@ async def generate_presigned_download_url(image_id: str):
 
 
 @router.get("/images")
-async def get_images():
+async def get_images(app_name: str = None):
     """画像一覧を取得する"""
     try:
-        result = await upload_service.get_images_list()
+        result = await upload_service.get_images_list(app_name)
         return result
     except Exception as e:
         logger.error(f"Error getting images list: {str(e)}")

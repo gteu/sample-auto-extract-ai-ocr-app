@@ -331,11 +331,11 @@ class UploadService:
             logger.error(f"Error generating download URL: {str(e)}")
             raise
 
-    async def get_images_list(self) -> Dict[str, Any]:
+    async def get_images_list(self, app_name: str = None) -> Dict[str, Any]:
         """画像一覧を取得する"""
         try:
-            # 全画像を取得
-            images = get_images()
+            # app_nameでフィルタリングして画像を取得
+            images = get_images(app_name)
 
             # レスポンス形式に変換
             result = {
